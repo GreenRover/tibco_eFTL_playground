@@ -16,7 +16,7 @@
 
     <label>eFTL Server URL</label>
     <form class='form-inline'>
-        <input type="text" name="url" class='span6' value="ws://k54129:9191/channel"/> <button type='button' class="btn" id="connectButton">Connect</button>
+        <input type="text" name="url" class='span6' value="ws://k54129:9191/lasttest"/> <button type='button' class="btn" id="connectButton">Connect</button>
     </form>
 
     <a class='close log' id="clearLogButton">x</a>
@@ -51,8 +51,8 @@
         // Asynchronously connect to the eFTL server.
 
         eFTL.connect(url, {
-            username: "user",
-            password: "password",
+            username: "admin",
+            password: "admin-pw",
             clientId: undefined,
             onConnect: function (eFTLConnection) {
 
@@ -107,7 +107,7 @@
     }
 
     function sendMessage() {
-        var m = new eFTLMessage();
+        var m = new eFTLMessage("lastest");
 
         // Publish messages with a destination field of "sample".
         //
@@ -115,18 +115,15 @@
         // be present and set to the EMS topic on which to publish the
         // message.
 
-        m.set("_dest", "sample");
-
-        // Populate additional fields.
-
-        m.set("text", "This is a sample eFTL message");
+        m.set("payload", counter + " This is a sample eFTL message");
+        m.set("type", "msgsize_queue_1.0");
         m.set("number", ++counter);
 
         // Asynchronously publish the message.
 
         connection.publish(m, {
             onComplete: function(message) {
-                addInfo("Published: " + message.toString());
+                addInfo("Published: " + message.get("payload"));
             },
             onError: function(message, code, reason) {
                 addError("Error publishing: " + reason);

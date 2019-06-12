@@ -16,7 +16,7 @@
 
     <label>eFTL Server URL</label>
     <form class='form-inline'>
-        <input type="text" name="url" class='span6' value="ws://k54129:9191/channel"/> <button type='button' class="btn" id="connectButton">Connect</button>
+        <input type="text" name="url" class='span6' value="ws://k54129:9191/lasttest"/> <button type='button' class="btn" id="connectButton">Connect</button>
     </form>
 
     <a class='close log' id="clearLogButton">x</a>
@@ -50,8 +50,8 @@
         // Asynchronously connect to the eFTL server.
 
         eFTL.connect(url, {
-            username: "user",
-            password: "password",
+            username: "admin",
+            password: "admin-pw",
             clientId: undefined,
             onConnect: function (eFTLConnection) {
 
@@ -81,18 +81,20 @@
                 // must only contain the destination field "_dest" set to
                 // the EMS topic on which to subscribe.
 
+                var matcher = '{"type":"msgsize_queue_1.0"}';
+
                 connection.subscribe({
-                    matcher: '{"_dest":"sample"}',
+                    matcher: matcher,
                     durable: undefined,
                     onSubscribe: function (id) {
-                        addSuccess("Subscribed");
+                        addSuccess("Subscribed: " + matcher);
                     },
                     onError: function (id, code, reason) {
                         addError(reason);
                         setTimeout(updateButtons);
                     },
                     onMessage: function (message) {
-                        addInfo("Got message: " + message.toString());
+                        addInfo("Got message: " + message.get("payload").substr(0, 12));
                     }
                 });
             },

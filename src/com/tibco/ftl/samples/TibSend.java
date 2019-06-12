@@ -16,7 +16,7 @@ import com.tibco.ftl.exceptions.*;
 
 public class TibSend 
 {
-    String          realmServer = "http://localhost:8080";
+    String          realmServer = "http://k54129:13131";
     Publisher       pub         = null;
     Message         msg         = null;
     Realm           realm       = null;
