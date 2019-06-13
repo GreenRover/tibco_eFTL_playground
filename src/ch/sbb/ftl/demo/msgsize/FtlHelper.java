@@ -12,7 +12,7 @@ import com.tibco.ftl.TibProperties;
 
 public class FtlHelper {
 
-	public static final String typeName = "msgsize_queue_1.0";
+	public static final String TYPE_NAME = "msgsize_queue_1.0";
 	
 	// https://docs.tibco.com/pub/ftl/5.0.0/doc/html/GUID-560E459A-87E2-437A-AF6D-996013FE1896.html
 	public static final String realmAppName = "default";
