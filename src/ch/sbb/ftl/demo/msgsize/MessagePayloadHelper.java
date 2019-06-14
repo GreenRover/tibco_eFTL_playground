@@ -4,8 +4,22 @@ import java.util.Objects;
 
 public class MessagePayloadHelper {
 
-	public static void processPayload(String payload, int count)  {
-		
+	/**
+	 * Extract information from the payload. The payload has the structure:
+	 * <li>time when message is created by the publisher
+	 * <li>information (e.g. topic name)
+	 * <li>message id (number starting at 1)
+	 * <li>data (lots of x)
+	 * <li>example:
+	 * 
+	 * <pre>
+	 * 1560490790836;msgsize/direct/json/myclass/1.0 | 1 xx
+	 * </pre>
+	 * 
+	 * @param payload
+	 * @param count
+	 */
+	public static void processPayload(final String payload, final int count) {
 		final String countInfo = calcCountInfo(count);
 		final int msgLength = payload.length();
 
@@ -16,13 +30,13 @@ public class MessagePayloadHelper {
 				msgLength);
 	}
 
-	private static String getTimeWhenSent(String text) {
-		long elapseTime = System.currentTimeMillis() - Long.parseLong(text.split(";")[0]);
+	private static String getTimeWhenSent(final String text) {
+		final long elapseTime = System.currentTimeMillis() - Long.parseLong(text.split(";")[0]);
 		return String.valueOf(elapseTime);
 	}
 
-	private static String extractMessageInfo(String text) {
-		String s = text.split(";")[1];
+	private static String extractMessageInfo(final String text) {
+		final String s = text.split(";")[1];
 		if (Objects.isNull(s)) {
 			return "-";
 		} else if (s.length() > 40) {
@@ -32,13 +46,12 @@ public class MessagePayloadHelper {
 		}
 	}
 
-	private static String calcCountInfo(int count) {
+	private static String calcCountInfo(final int count) {
 		return String.format(" [%d of %d] ", count, MessageConstants.SENDING_COUNT);
 	}
-	
 
-	public static String createPayload(final MessageConstants.DataType dataType, final int i, String info) {
-		StringBuilder sb = new StringBuilder();
+	public static String createPayload(final MessageConstants.DataType dataType, final int i, final String info) {
+		final StringBuilder sb = new StringBuilder();
 		sb.append(System.currentTimeMillis() + ";");
 		sb.append(info).append(" | ");
 		switch (dataType) {
@@ -57,6 +70,6 @@ public class MessagePayloadHelper {
 		default:
 			throw new RuntimeException("Unexpected DataType");
 		}
-		return sb.toString();	
+		return sb.toString();
 	}
 }
