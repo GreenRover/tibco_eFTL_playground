@@ -94,7 +94,14 @@
                         setTimeout(updateButtons);
                     },
                     onMessage: function (message) {
-                        addInfo("Got message: " + message.get("payload").substr(0, 12));
+                        // addInfo("Got message: " + message.get("payload").substr(0, 12));
+                        let now = Date.now();
+                        let attachment = message.get("payload");
+                        let splits = attachment.split(';');
+                        let timeWhenSent = splits[0].substr(4);
+                        let elapsedTime = now - parseInt(timeWhenSent);
+                        console.log("Elapsed Time in ms: " + elapsedTime + " | " + splits[1].substr(0, 40) + " | " + attachment.length + " bytes");
+                        addInfo("Elapsed Time in ms: " + elapsedTime + " | " + splits[1].substr(0, 40) + " | " + attachment.length + " bytes");
                     }
                 });
             },
