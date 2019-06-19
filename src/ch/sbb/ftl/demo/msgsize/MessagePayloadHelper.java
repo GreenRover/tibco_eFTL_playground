@@ -31,6 +31,7 @@ public class MessagePayloadHelper {
 	}
 
 	private static String getTimeWhenSent(final String text) {
+		System.out.println(text.split(";")[0]);
 		final long elapseTime = System.currentTimeMillis() - Long.parseLong(text.split(";")[0]);
 		return String.valueOf(elapseTime);
 	}

@@ -2,7 +2,7 @@ package ch.sbb.ftl.demo.msgsize;
 
 public class MessageConstants {
 
-	public static int SENDING_COUNT = 204;
+	public static int SENDING_COUNT = 10;
 
 	public enum DataType {
 		K1_TextMessage, K10_TextMessage, K100_TextMessage, K1000_TextMessage

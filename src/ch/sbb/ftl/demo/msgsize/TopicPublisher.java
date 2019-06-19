@@ -9,10 +9,12 @@ import com.tibco.ftl.Realm;
 
 public class TopicPublisher {
 
-	public static void main(final String... args) throws FTLException {
+	public static void main(final String... args) throws FTLException, InterruptedException {
 		FtlHelper.setupLogging(Level.WARNING);
+		System.out.println("FTL TopicPublisher initializing... with: " + FtlHelper.realmServer);
 		final Realm realm = FtlHelper.getRealm();
-		System.out.println("FTL TopicPublisher initializing...");
+		System.out.println("Connected to: " + realm);
+		Thread.sleep(300);
 
 		final Publisher pub = realm.createPublisher(FtlHelper.ftlEndPoint);
 		runWithNewSession(pub, realm, FtlHelper.TYPE_NAME, MessageConstants.DataType.K100_TextMessage);
@@ -25,9 +27,11 @@ public class TopicPublisher {
 		try {
 			for (int i = 1; i <= MessageConstants.SENDING_COUNT; i++) {
 				final Message msg = createMessage(realm, dataType, i, typeName);
+				System.out.println(msg.toString().trim().substring(0, 80));
 				pub.send(msg);
 				msg.destroy();
-				System.out.println(calcCountInfo(i) + "MessageId-" + i + " sent");
+//				System.out.println(calcCountInfo(i) + "MessageId-" + i + " sent");
+//				Thread.sleep(100);
 			}
 		} catch (final Exception e) {
 			System.out.println(e);

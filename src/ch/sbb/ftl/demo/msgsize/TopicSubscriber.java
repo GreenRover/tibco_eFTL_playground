@@ -16,14 +16,18 @@ public class TopicSubscriber implements SubscriberListener {
 
 	private static AtomicInteger messageCount = new AtomicInteger(0);
 
-	public static void main(final String... args) throws FTLException {
+	public static void main(final String... args) throws FTLException, InterruptedException {
 		FtlHelper.setupLogging(Level.WARNING);
 
 		System.out.println("FTL TopicSubscriber initializing...");
 
 		final Realm realm = FtlHelper.getRealm();
+		System.out.println("Connected to: " + realm);
+		Thread.sleep(300);
+		
 
-		final ContentMatcher cm = realm.createContentMatcher("{\"type\":\"" + FtlHelper.TYPE_NAME + "\"}");
+		final String matcher = "{\"type\":\"" + FtlHelper.TYPE_NAME + "\"}";
+		final ContentMatcher cm = realm.createContentMatcher(matcher);
 
 		// Create a subscriber
 		final Subscriber sub = realm.createSubscriber(FtlHelper.ftlEndPoint, cm);
@@ -35,7 +39,7 @@ public class TopicSubscriber implements SubscriberListener {
 		final EventQueue queue = realm.createEventQueue();
 		queue.addSubscriber(sub, new TopicSubscriber());
 
-		System.out.println("FTL TopicSubscriber start listing ...");
+		System.out.println("FTL TopicSubscriber start listing ... on: " + matcher);
 		while (true)
 			queue.dispatch();
 	}

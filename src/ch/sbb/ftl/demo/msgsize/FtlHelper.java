@@ -12,29 +12,57 @@ import com.tibco.ftl.TibProperties;
 
 public class FtlHelper {
 
-	public static final String TYPE_NAME = "msgsize_queue_1.0";
-	
+	public static final String TYPE_NAME = "demo";
+
 	// https://docs.tibco.com/pub/ftl/5.0.0/doc/html/GUID-560E459A-87E2-437A-AF6D-996013FE1896.html
-	public static final String realmAppName = "default";
-	public static final String ftlEndPoint = "lasttest";
-	public static final String realmServer = "http://k54129:13131";
-	public static final String realmUser = "admin";
-	public static final String realmPassword = "admin-pw";
+	public static String realmAppName = "default";
+	public static String ftlEndPoint = "default";
+	public static String realmServer = "http://shared-rcssolace-node02.otc-test.sbb.ch:8585";
+	public static String realmUser = "admin";
+	public static String realmPassword = "admin-pw";
 
 	public static void setupLogging(final Level level) {
 		final LogManager manager = LogManager.getLogManager();
 		final Logger rootLogger = manager.getLogger("");
 		rootLogger.setLevel(level);
 		for (final Handler h : rootLogger.getHandlers()) {
-		    h.setLevel(level);
-		}		
+			h.setLevel(level);
+		}
 	}
-	
+
 	public static Realm getRealm() throws FTLException {
-        final TibProperties props = FTL.createProperties();
-        props.set(Realm.PROPERTY_STRING_USERNAME, realmUser);
-        props.set(Realm.PROPERTY_STRING_USERPASSWORD, realmPassword);
-        
+		if (System.getProperty("count") != null) {
+			MessageConstants.SENDING_COUNT = Integer.parseInt(System.getProperty("count"));
+		}
+
+		if (System.getProperty("endpoint") != null) {
+			FtlHelper.ftlEndPoint = System.getProperty("endpoint");
+		}
+		
+		if (System.getProperty("realmUser") != null) {
+			FtlHelper.realmUser = System.getProperty("realmUser");
+		}
+		
+		if (System.getProperty("realmPassword") != null) {
+			FtlHelper.realmPassword = System.getProperty("realmPassword");
+		}
+		
+		if (System.getProperty("realmServer") != null) {
+			FtlHelper.realmServer = System.getProperty("realmServer");
+		}
+
+		if (System.getProperty("realmAppName") != null) {
+			FtlHelper.realmAppName = System.getProperty("realmAppName");
+		}
+
+
+		final TibProperties props = FTL.createProperties();
+		props.set(Realm.PROPERTY_STRING_USERNAME, realmUser);
+		props.set(Realm.PROPERTY_STRING_USERPASSWORD, realmPassword);
+
+		System.out.println(String.format("Try to connect to: %s User:%s, Endpoint:%s, AppName:%s", realmServer,
+				realmUser, ftlEndPoint, realmAppName));
+
 		return FTL.connectToRealmServer(realmServer, realmAppName, props);
-	}	
+	}
 }

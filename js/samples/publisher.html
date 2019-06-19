@@ -7,7 +7,7 @@
     <!--
         This sample requires Twitter bootstrap for CSS. <http://getbootstrap.com/>,
     -->
-    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+   <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body onload="printVersion();">
@@ -16,7 +16,7 @@
 
     <label>eFTL Server URL</label>
     <form class='form-inline'>
-        <input type="text" name="url" class='span6' value="ws://k54129:9191/lasttest"/> <button type='button' class="btn" id="connectButton">Connect</button>
+        <input type="text" name="url" class='span6' value="ws://shared-rcssolace-node02.otc-test.sbb.ch:8585/lasttest"/> <button type='button' class="btn" id="connectButton">Connect</button>
     </form>
 
     <a class='close log' id="clearLogButton">x</a>
@@ -32,7 +32,7 @@
  <http://jquery.com/>
  This sample references a copy of jQuery hosted by Google.
 -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="../lib/jquery.min.js"></script>
 
 <script type="text/javascript">
 
@@ -115,8 +115,8 @@
         // be present and set to the EMS topic on which to publish the
         // message.
 
-        m.set("payload", counter + " This is a sample eFTL message");
-        m.set("type", "msgsize_queue_1.0");
+        m.set("payload", (new Date().valueOf()) + "; " + counter + " This is a sample eFTL message");
+        m.set("type", "demo");
         m.set("number", ++counter);
 
         // Asynchronously publish the message.
