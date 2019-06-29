@@ -18,6 +18,12 @@ public class TopicPublisher {
 
 		final Publisher pub = realm.createPublisher(FtlHelper.ftlEndPoint);
 		runWithNewSession(pub, realm, FtlHelper.TYPE_NAME, MessageConstants.DataType.K100_TextMessage);
+		
+		System.out.println("Cool down");
+		Thread.sleep(5000);
+		pub.close();
+		realm.close();
+		Thread.sleep(5000);
 		System.out.println("DONE");
 	}
 
