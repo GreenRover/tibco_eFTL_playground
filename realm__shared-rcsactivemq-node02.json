@@ -1,6 +1,6 @@
 {
   "name": "_default_realm",
-  "id": 31026,
+  "id": 46026,
   "description": "",
   "version": 1,
   "realm_server_version": "6.1.0   V5",
@@ -30,151 +30,6 @@
     "com.tibco.ftl.client.map.persistence.retry.duration": -1
   },
   "applications": [
-    {
-      "last_modified": "2019-06-28T11:51:55.169676446+02:00",
-      "last_modified_millis": 1561715515169,
-      "last_modified_by": "admin",
-      "name": "_GroupServer",
-      "id": 1047,
-      "description": "",
-      "manage_all_formats": false,
-      "preload_format_names": [],
-      "endpoints": [
-        {
-          "name": "_Common",
-          "description": "",
-          "id": 1049
-        }
-      ],
-      "instances": [
-        {
-          "name": "PrimaryGroupServer",
-          "id": 1051,
-          "description": "",
-          "matcher": {
-            "host": "",
-            "identifier": "Primary"
-          },
-          "endpoints": [
-            {
-              "dynamic_durable": {},
-              "subscribers": [],
-              "list_name": "__GroupServer_@_PrimaryGroupServer_@__Common",
-              "endpoint_name": "_Common"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "last_modified": "2019-06-28T11:53:35.232840648+02:00",
-      "last_modified_millis": 1561715615232,
-      "last_modified_by": "admin",
-      "name": "_eFTL_Cluster",
-      "id": 26028,
-      "description": "",
-      "manage_all_formats": false,
-      "preload_format_names": [],
-      "endpoints": [
-        {
-          "name": "eftl_channel_app_facing_endpoint_persisted",
-          "description": "",
-          "id": 26036,
-          "store": "ftl.persistent.store",
-          "cluster": "ftl.default.cluster"
-        },
-        {
-          "name": "eftl_cluster_facing_endpoint",
-          "description": "",
-          "id": 26032
-        },
-        {
-          "name": "eftl_channel_app_facing_endpoint_non_persisted",
-          "description": "",
-          "id": 26034
-        }
-      ],
-      "instances": [
-        {
-          "name": "default",
-          "id": 26030,
-          "description": "",
-          "matcher": {
-            "host": "",
-            "identifier": ""
-          },
-          "endpoints": [
-            {
-              "dynamic_durable": {
-                "template": "ftl.shared.template"
-              },
-              "subscribers": [],
-              "list_name": "__eFTL_Cluster_@_default_@_eftl_channel_app_facing_endpoint_persisted",
-              "endpoint_name": "eftl_channel_app_facing_endpoint_persisted"
-            },
-            {
-              "dynamic_durable": {},
-              "subscribers": [],
-              "list_name": "__eFTL_Cluster_@_default_@_eftl_cluster_facing_endpoint",
-              "endpoint_name": "eftl_cluster_facing_endpoint"
-            },
-            {
-              "dynamic_durable": {},
-              "subscribers": [],
-              "list_name": "__eFTL_Cluster_@_default_@_eftl_channel_app_facing_endpoint_non_persisted",
-              "endpoint_name": "eftl_channel_app_facing_endpoint_non_persisted"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "last_modified": "2019-06-28T11:51:55.169676446+02:00",
-      "last_modified_millis": 1561715515169,
-      "last_modified_by": "admin",
-      "name": "_GroupClient",
-      "id": 1041,
-      "description": "",
-      "manage_all_formats": false,
-      "preload_format_names": [],
-      "endpoints": [
-        {
-          "name": "_Common",
-          "description": "",
-          "id": 1043
-        },
-        {
-          "name": "_CommonWs",
-          "description": "",
-          "id": 1053
-        }
-      ],
-      "instances": [
-        {
-          "name": "default",
-          "id": 1039,
-          "description": "",
-          "matcher": {
-            "host": "",
-            "identifier": ""
-          },
-          "endpoints": [
-            {
-              "dynamic_durable": {},
-              "subscribers": [],
-              "list_name": "__GroupClient_@_default_@__Common",
-              "endpoint_name": "_Common"
-            },
-            {
-              "dynamic_durable": {},
-              "subscribers": [],
-              "list_name": "__GroupClient_@_default_@__CommonWs",
-              "endpoint_name": "_CommonWs"
-            }
-          ]
-        }
-      ]
-    },
     {
       "last_modified": "2019-06-28T11:53:12.024474291+02:00",
       "last_modified_millis": 1561715592024,
@@ -245,6 +100,206 @@
               "dynamic_durable": {},
               "subscribers": [],
               "list_name": "_non_persisted_@_default_@_default",
+              "endpoint_name": "default"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "last_modified": "2019-06-28T11:51:55.169676446+02:00",
+      "last_modified_millis": 1561715515169,
+      "last_modified_by": "admin",
+      "name": "_GroupServer",
+      "id": 1047,
+      "description": "",
+      "manage_all_formats": false,
+      "preload_format_names": [],
+      "endpoints": [
+        {
+          "name": "_Common",
+          "description": "",
+          "id": 1049
+        }
+      ],
+      "instances": [
+        {
+          "name": "PrimaryGroupServer",
+          "id": 1051,
+          "description": "",
+          "matcher": {
+            "host": "",
+            "identifier": "Primary"
+          },
+          "endpoints": [
+            {
+              "dynamic_durable": {},
+              "subscribers": [],
+              "list_name": "__GroupServer_@_PrimaryGroupServer_@__Common",
+              "endpoint_name": "_Common"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "last_modified": "2019-07-01T15:37:42.692968535+02:00",
+      "last_modified_millis": 1561988262692,
+      "last_modified_by": "admin",
+      "name": "_eFTL_Cluster",
+      "id": 26028,
+      "description": "",
+      "manage_all_formats": false,
+      "preload_format_names": [],
+      "endpoints": [
+        {
+          "name": "eftl_channel_app_facing_endpoint_persisted2",
+          "description": "",
+          "id": 36032,
+          "store": "ftl.persistent.store",
+          "cluster": "ftl.default.cluster"
+        },
+        {
+          "name": "eftl_cluster_facing_endpoint",
+          "description": "",
+          "id": 26032
+        },
+        {
+          "name": "eftl_channel_app_facing_endpoint_non_persisted",
+          "description": "",
+          "id": 26034
+        },
+        {
+          "name": "eftl_channel_app_facing_endpoint_persisted",
+          "description": "",
+          "id": 26036,
+          "store": "ftl.persistent.store",
+          "cluster": "ftl.default.cluster"
+        }
+      ],
+      "instances": [
+        {
+          "name": "default",
+          "id": 26030,
+          "description": "",
+          "matcher": {
+            "host": "",
+            "identifier": ""
+          },
+          "endpoints": [
+            {
+              "dynamic_durable": {
+                "template": "ftl.standard.template"
+              },
+              "subscribers": [],
+              "list_name": "__eFTL_Cluster_@_default_@_eftl_channel_app_facing_endpoint_persisted2",
+              "endpoint_name": "eftl_channel_app_facing_endpoint_persisted2"
+            },
+            {
+              "dynamic_durable": {},
+              "subscribers": [],
+              "list_name": "__eFTL_Cluster_@_default_@_eftl_cluster_facing_endpoint",
+              "endpoint_name": "eftl_cluster_facing_endpoint"
+            },
+            {
+              "dynamic_durable": {},
+              "subscribers": [],
+              "list_name": "__eFTL_Cluster_@_default_@_eftl_channel_app_facing_endpoint_non_persisted",
+              "endpoint_name": "eftl_channel_app_facing_endpoint_non_persisted"
+            },
+            {
+              "dynamic_durable": {
+                "template": "ftl.shared.template"
+              },
+              "subscribers": [],
+              "list_name": "__eFTL_Cluster_@_default_@_eftl_channel_app_facing_endpoint_persisted",
+              "endpoint_name": "eftl_channel_app_facing_endpoint_persisted"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "last_modified": "2019-06-28T11:51:55.169676446+02:00",
+      "last_modified_millis": 1561715515169,
+      "last_modified_by": "admin",
+      "name": "_GroupClient",
+      "id": 1041,
+      "description": "",
+      "manage_all_formats": false,
+      "preload_format_names": [],
+      "endpoints": [
+        {
+          "name": "_CommonWs",
+          "description": "",
+          "id": 1053
+        },
+        {
+          "name": "_Common",
+          "description": "",
+          "id": 1043
+        }
+      ],
+      "instances": [
+        {
+          "name": "default",
+          "id": 1039,
+          "description": "",
+          "matcher": {
+            "host": "",
+            "identifier": ""
+          },
+          "endpoints": [
+            {
+              "dynamic_durable": {},
+              "subscribers": [],
+              "list_name": "__GroupClient_@_default_@__CommonWs",
+              "endpoint_name": "_CommonWs"
+            },
+            {
+              "dynamic_durable": {},
+              "subscribers": [],
+              "list_name": "__GroupClient_@_default_@__Common",
+              "endpoint_name": "_Common"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "last_modified": "2019-07-01T15:37:37.832825724+02:00",
+      "last_modified_millis": 1561988257832,
+      "last_modified_by": "admin",
+      "name": "persisted2",
+      "id": 36026,
+      "description": "",
+      "manage_all_formats": false,
+      "preload_format_names": [],
+      "endpoints": [
+        {
+          "name": "default",
+          "description": "",
+          "id": 36030,
+          "store": "ftl.persistent.store",
+          "cluster": "ftl.default.cluster"
+        }
+      ],
+      "instances": [
+        {
+          "name": "default",
+          "id": 36028,
+          "description": "",
+          "matcher": {
+            "host": "",
+            "identifier": ""
+          },
+          "endpoints": [
+            {
+              "dynamic_durable": {
+                "template": "ftl.standard.template"
+              },
+              "subscribers": [],
+              "list_name": "_persisted2_@_default_@_default",
               "endpoint_name": "default"
             }
           ]
@@ -637,8 +692,8 @@
   ],
   "eftl_clusters": [
     {
-      "last_modified": "2019-06-28T11:53:35.232840648+02:00",
-      "last_modified_millis": 1561715615232,
+      "last_modified": "2019-07-01T15:37:42.692968535+02:00",
+      "last_modified_millis": 1561988262692,
       "last_modified_by": "admin",
       "name": "Cluster",
       "description": "",
@@ -702,6 +757,35 @@
           "static_durables": [],
           "transports": [
             "persisted"
+          ]
+        },
+        {
+          "name": "persisted2",
+          "description": "",
+          "max_pending_acks": 100,
+          "max_message_size": "8kb",
+          "max_connections": 0,
+          "jaas_publish_group": "",
+          "jaas_subscribe_group": "",
+          "jaas_map_group": "",
+          "apns_cert": "",
+          "apns_cert_pass": "",
+          "apns_sandbox": false,
+          "server_heartbeat": 240,
+          "client_timeout": 600,
+          "client_connect_timeout": 60,
+          "client_reconnect_timeout": 60,
+          "provider_type": "ftl",
+          "ftl_exchange_format": "",
+          "max_queue_size": 1000,
+          "persistence_store": "ftl.persistent.store",
+          "dynamic_durable_template": "ftl.standard.template",
+          "shared_durable_template": "ftl.shared.template",
+          "last_value_durable_template": "ftl.lastvalue.template",
+          "map_template": "ftl.map.template",
+          "static_durables": [],
+          "transports": [
+            "persisted2"
           ]
         }
       ]
@@ -897,23 +981,34 @@
         "subnet_mask": "",
         "mode": ""
       }
+    },
+    {
+      "last_modified": "2019-07-01T15:37:32.13992097+02:00",
+      "last_modified_millis": 1561988252139,
+      "last_modified_by": "admin",
+      "name": "persisted2",
+      "description": "",
+      "relationships": [],
+      "id": 41028,
+      "config": {
+        "transport_type": "dtcp",
+        "backlog_full_wait": "0",
+        "recv_spin_limit": "0",
+        "backlog_size": "64mb",
+        "port": "0",
+        "subnet_mask": "",
+        "mode": ""
+      }
     }
   ],
   "connector_lists": [
     {
-      "name": "__GroupServer_@_PrimaryGroupServer_@__Common",
-      "id": 16029,
+      "name": "_persisted_@_default_@_default",
+      "id": 0,
       "description": "",
       "connectors": [
         {
-          "transport": "_GroupServerTport2",
-          "receive": true,
-          "receive_inbox": true,
-          "send": true,
-          "send_inbox": true
-        },
-        {
-          "transport": "_GroupServerTport1",
+          "transport": "persisted",
           "receive": true,
           "receive_inbox": true,
           "send": true,
@@ -922,12 +1017,47 @@
       ]
     },
     {
-      "name": "__eFTL_Cluster_@_default_@_eftl_channel_app_facing_endpoint_persisted",
+      "name": "_non_persisted_@_default_@_default",
       "id": 0,
       "description": "",
       "connectors": [
         {
-          "transport": "persisted",
+          "transport": "non_persisted",
+          "receive": true,
+          "receive_inbox": true,
+          "send": true,
+          "send_inbox": true
+        }
+      ]
+    },
+    {
+      "name": "__GroupServer_@_PrimaryGroupServer_@__Common",
+      "id": 16029,
+      "description": "",
+      "connectors": [
+        {
+          "transport": "_GroupServerTport1",
+          "receive": true,
+          "receive_inbox": true,
+          "send": true,
+          "send_inbox": true
+        },
+        {
+          "transport": "_GroupServerTport2",
+          "receive": true,
+          "receive_inbox": true,
+          "send": true,
+          "send_inbox": true
+        }
+      ]
+    },
+    {
+      "name": "__eFTL_Cluster_@_default_@_eftl_channel_app_facing_endpoint_persisted2",
+      "id": 0,
+      "description": "",
+      "connectors": [
+        {
+          "transport": "persisted2",
           "receive": true,
           "receive_inbox": true,
           "send": true,
@@ -964,12 +1094,12 @@
       ]
     },
     {
-      "name": "__GroupClient_@_default_@__Common",
-      "id": 16025,
+      "name": "__eFTL_Cluster_@_default_@_eftl_channel_app_facing_endpoint_persisted",
+      "id": 0,
       "description": "",
       "connectors": [
         {
-          "transport": "_GroupClientTport",
+          "transport": "persisted",
           "receive": true,
           "receive_inbox": true,
           "send": true,
@@ -992,12 +1122,12 @@
       ]
     },
     {
-      "name": "_persisted_@_default_@_default",
-      "id": 0,
+      "name": "__GroupClient_@_default_@__Common",
+      "id": 16025,
       "description": "",
       "connectors": [
         {
-          "transport": "persisted",
+          "transport": "_GroupClientTport",
           "receive": true,
           "receive_inbox": true,
           "send": true,
@@ -1006,12 +1136,12 @@
       ]
     },
     {
-      "name": "_non_persisted_@_default_@_default",
+      "name": "_persisted2_@_default_@_default",
       "id": 0,
       "description": "",
       "connectors": [
         {
-          "transport": "non_persisted",
+          "transport": "persisted2",
           "receive": true,
           "receive_inbox": true,
           "send": true,
