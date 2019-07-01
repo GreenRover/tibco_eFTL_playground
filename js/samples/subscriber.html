@@ -16,7 +16,8 @@
 
     <label>eFTL Server URL</label>
     <form class='form-inline'>
-        <input type="text" name="url" class='span6' value="ws://shared-rcsactivemq-node02.otc-test.sbb.ch:8585/persisted"/> <button type='button' class="btn" id="connectButton">Connect</button>
+        <input type="text" name="url" class='span6' value="ws://shared-rcsactivemq-node02.otc-test.sbb.ch:8585/persisted"/> <button type='button' class="btn" id="connectButton">Connect</button><br>
+        <input type="text" name="dureable" class='span6' value="" placeholder="" />
     </form>
 
     <a class='close log' id="clearLogButton">x</a>
@@ -39,6 +40,11 @@
     var connection = null;
     var lastURL = null;
     var counter = 0;
+
+    $('input[name="dureable"]').attr('value', 'dureable-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    }));
 
     function printVersion() {
         addInfo(eFTL.getVersion());
@@ -82,10 +88,14 @@
                 // the EMS topic on which to subscribe.
 
                 var matcher = '{"type":"demo"}';
+                var dureable = $('input[name="dureable"]').val();
+                if (dureable == '') {
+                    dureable = undefined;
+                }
 
                 connection.subscribe({
                     matcher: '', // matcher,
-                    durable: 'dddddd',
+                    durable: dureable,
                     onSubscribe: function (id) {
                         addSuccess("Subscribed: " + matcher);
                     },
