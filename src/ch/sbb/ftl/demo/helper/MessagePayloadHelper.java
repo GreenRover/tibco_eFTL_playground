@@ -58,8 +58,8 @@ public class MessagePayloadHelper {
 		return sb.toString();
 	}
 
-	public static String createPayload(final MessageConstants.DataType dataType, final int i, final String info) {
-		return createPayload(dataType.toString(), i, info);
+	public static String createPayload(final int msgSize, final int i, final String info) {
+		return createPayload(MessageConstants.createStringOfSize(msgSize), i, info);
 	}
 
 }

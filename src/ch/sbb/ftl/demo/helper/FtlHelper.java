@@ -31,10 +31,6 @@ public class FtlHelper {
 	}
 
 	public static Realm getRealm() throws FTLException {
-		if (System.getProperty("count") != null) {
-			MessageConstants.SENDING_COUNT = Integer.parseInt(System.getProperty("count"));
-		}
-
 		if (System.getProperty("endpoint") != null) {
 			FtlHelper.ftlEndPoint = System.getProperty("endpoint");
 		}

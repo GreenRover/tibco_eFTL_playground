@@ -19,9 +19,9 @@ public class TopicPublisher {
 		final Realm realm = FtlHelper.getRealm();
 		System.out.println("Connected to: " + realm);
 
-		MessageConstants.DataType msgSize = MessageConstants.DataType.MESSAGE_K10;
+		 int msgSize = 10_000;
 		if (System.getProperty("msgSize") != null) {
-			msgSize = MessageConstants.DataType.valueOf(System.getProperty("msgSize"));
+			msgSize = Integer.parseInt(System.getProperty("msgSize"));
 		}
 
 		final Publisher pub = realm.createPublisher(FtlHelper.ftlEndPoint);
@@ -35,13 +35,13 @@ public class TopicPublisher {
 	}
 
 	private static void runWithNewSession(final Publisher pub, final Realm realm, final String typeName,
-			final MessageConstants.DataType dataType) {
+			 final int msgSize) {
 
 		final int delay = Integer.parseInt(System.getProperty("delay", "0"));
 
 		try {
 			for (int i = 1; i <= MessageConstants.SENDING_COUNT; i++) {
-				final Message msg = createMessage(realm, dataType, i, typeName);
+				final Message msg = createMessage(realm, msgSize, i, typeName);
 //				System.out.println(msg.toString().trim().substring(0, 80));
 				pub.send(msg);
 				msg.destroy();
@@ -56,10 +56,10 @@ public class TopicPublisher {
 		}
 	}
 
-	private static Message createMessage(final Realm realm, final MessageConstants.DataType dataType, final int i,
+	private static Message createMessage(final Realm realm, final int msgSize, final int i,
 			final String typeName) throws FTLException {
 
-		final String payload = MessagePayloadHelper.createPayload(dataType, i, typeName);
+		final String payload = MessagePayloadHelper.createPayload(msgSize, i, typeName);
 		return createTextMessage(realm, i, payload, typeName);
 	}
 

@@ -76,10 +76,9 @@ public class ParallelTopicPublisher {
 		}
 
 		System.out.println("  Cool down");
-		Thread.sleep(5000);
+		Thread.sleep(500);
 		pub.close();
 		realm.close();
-		Thread.sleep(5000);
 		System.out.println("  DONE");
 	}
 
