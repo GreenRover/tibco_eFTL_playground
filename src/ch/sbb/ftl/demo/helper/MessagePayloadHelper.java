@@ -31,7 +31,6 @@ public class MessagePayloadHelper {
 	}
 
 	private static String getTimeWhenSent(final String text) {
-		System.out.println(text.split(";")[0]);
 		final long elapseTime = System.currentTimeMillis() - Long.parseLong(text.split(";")[0]);
 		return String.valueOf(elapseTime);
 	}
@@ -51,26 +50,16 @@ public class MessagePayloadHelper {
 		return String.format(" [%d of %d] ", count, MessageConstants.SENDING_COUNT);
 	}
 
-	public static String createPayload(final MessageConstants.DataType dataType, final int i, final String info) {
+	public static String createPayload(final String text, final int i, final String info) {
 		final StringBuilder sb = new StringBuilder();
 		sb.append(System.currentTimeMillis() + ";");
 		sb.append(info).append(" | ");
-		switch (dataType) {
-		case K1_TextMessage:
-			sb.append(String.format("%d %s!", i, MessageConstants.MESSAGE_K1));
-			break;
-		case K10_TextMessage:
-			sb.append(String.format("%d %s!", i, MessageConstants.MESSAGE_K10));
-			break;
-		case K100_TextMessage:
-			sb.append(String.format("%d %s!", i, MessageConstants.MESSAGE_K100));
-			break;
-		case K1000_TextMessage:
-			sb.append(String.format("%d %s!", i, MessageConstants.MESSAGE_K1000));
-			break;
-		default:
-			throw new RuntimeException("Unexpected DataType");
-		}
+		sb.append(String.format("%d %s!", i, text));
 		return sb.toString();
 	}
+
+	public static String createPayload(final MessageConstants.DataType dataType, final int i, final String info) {
+		return createPayload(dataType.toString(), i, info);
+	}
+
 }

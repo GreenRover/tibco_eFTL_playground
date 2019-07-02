@@ -19,7 +19,7 @@ public class TopicPublisher {
 		final Realm realm = FtlHelper.getRealm();
 		System.out.println("Connected to: " + realm);
 
-		MessageConstants.DataType msgSize = MessageConstants.DataType.K10_TextMessage;
+		MessageConstants.DataType msgSize = MessageConstants.DataType.MESSAGE_K10;
 		if (System.getProperty("msgSize") != null) {
 			msgSize = MessageConstants.DataType.valueOf(System.getProperty("msgSize"));
 		}

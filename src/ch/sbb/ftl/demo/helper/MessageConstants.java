@@ -5,8 +5,13 @@ public class MessageConstants {
 	public static int SENDING_COUNT = 10_000;
 	public static int PARALLEL_THREADS = 12;
 
+	public static final int REQUEST_TIMEOUT_IN_MILLIS = 10_000;
+
+	public static final int MAX_MESSAGES_IN_QUEUE = 1_000;
+
 	public enum DataType {
-		K1_TextMessage, K10_TextMessage, K100_TextMessage, K1000_TextMessage
+		MESSAGE_B10, MESSAGE_B20, MESSAGE_B50, MESSAGE_B100, MESSAGE_B200, MESSAGE_B500, //
+		MESSAGE_K1, MESSAGE_K2, MESSAGE_K5, MESSAGE_K10, MESSAGE_K100, MESSAGE_K1000
 	}
 
 	public static String MESSAGE_B10 = createStringOfSize(10);
@@ -20,15 +25,16 @@ public class MessageConstants {
 	public static String MESSAGE_K2 = createStringOfSize(2000);
 	public static String MESSAGE_K5 = createStringOfSize(5000);
 	public static String MESSAGE_K10 = createStringOfSize(10_000);
-	
+
 	public static String MESSAGE_K100 = createStringOfSize(100_000);
 	public static String MESSAGE_K1000 = createStringOfSize(1_000_000);
 
-	private static String createStringOfSize(int n) {
-		StringBuilder sb = new StringBuilder(n);
+	public static String createStringOfSize(int n) {
+		StringBuilder outputBuffer = new StringBuilder(n);
 		for (int i = 0; i < n; i++) {
-			sb.append("x");
+			outputBuffer.append("x");
 		}
-		return sb.toString();
+		return outputBuffer.toString();
 	}
+
 }
