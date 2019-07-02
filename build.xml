@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="ftl" name="Create Runnable Jar for Project ftl">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <!--define folder properties-->
+    <property name="dir.buildfile" value="."/>
+    <property name="dir.workspace" value="${dir.buildfile}/.."/>
+    <property name="dir.jarfile" value="C:/devsbb/tmp"/>
+    <target name="build">
+        <jar destfile="${dir.jarfile}/ftl.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="ch.sbb.ftl.demo.topic.TopicPublisher"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="${dir.buildfile}/bin"/>
+        </jar>
+    </target>
+    <target name="deploy">
+        <scp file="${dir.jarfile}/ftl.jar" todir="cloud-user@shared-rcsactivemq-node01.otc-test.sbb.ch:/tmp" keyfile="H:/.ssh/id_rcs-operator" trust="true" />
+        <scp file="${dir.jarfile}/ftl.jar" todir="cloud-user@shared-rcsactivemq-node02.otc-test.sbb.ch:/tmp" keyfile="H:/.ssh/id_rcs-operator" trust="true" />
+        <scp file="${dir.jarfile}/ftl.jar" todir="rcs@rcsmsg01:/tmp" keyfile="H:/.ssh/id_rcs-operator" trust="true" />
+        <scp file="${dir.jarfile}/ftl.jar" todir="docker@k54129:/tmp" keyfile="H:/.ssh/id_rcs-operator" trust="true" />
+    </target>
+</project>
