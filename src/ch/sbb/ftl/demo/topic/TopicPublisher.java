@@ -37,7 +37,7 @@ public class TopicPublisher {
 	private static void runWithNewSession(final Publisher pub, final Realm realm, final String typeName,
 			final MessageConstants.DataType dataType) {
 
-		final int delay = Integer.parseInt(System.getProperty("delay"));
+		final int delay = Integer.parseInt(System.getProperty("delay", "0"));
 
 		try {
 			for (int i = 1; i <= MessageConstants.SENDING_COUNT; i++) {
