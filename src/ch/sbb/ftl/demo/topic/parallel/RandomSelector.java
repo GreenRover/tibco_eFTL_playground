@@ -32,8 +32,7 @@ public class RandomSelector {
 		messages.add(MessageConstants.MESSAGE_K2);
 
 		for (int i = minQueue; i <= maxQueue; i++) {
-			// final String topic = ("topic/parallel/" + i);
-			final String topic = ("demo");
+			final String topic = ("topic/parallel/" + i);
 			topics.add(topic);
 		}
 	}
