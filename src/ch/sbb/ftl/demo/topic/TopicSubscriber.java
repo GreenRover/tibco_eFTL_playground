@@ -1,4 +1,4 @@
-package ch.sbb.ftl.demo.msgsize;
+package ch.sbb.ftl.demo.topic;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -11,6 +11,9 @@ import com.tibco.ftl.Message;
 import com.tibco.ftl.Realm;
 import com.tibco.ftl.Subscriber;
 import com.tibco.ftl.SubscriberListener;
+
+import ch.sbb.ftl.demo.helper.FtlHelper;
+import ch.sbb.ftl.demo.helper.MessagePayloadHelper;
 
 public class TopicSubscriber implements SubscriberListener {
 
@@ -26,7 +29,10 @@ public class TopicSubscriber implements SubscriberListener {
 		Thread.sleep(300);
 		
 
-		final String matcher = "{\"type\":\"" + FtlHelper.TYPE_NAME + "\"}";
+		String matcher = "{\"type\":\"" + FtlHelper.TYPE_NAME + "\"}";
+		if (System.getProperty("matcher") != null) {
+			matcher = System.getProperty("matcher");
+		}
 		final ContentMatcher cm = realm.createContentMatcher(matcher);
 
 		// Create a subscriber

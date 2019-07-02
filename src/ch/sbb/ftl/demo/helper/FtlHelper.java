@@ -1,4 +1,4 @@
-package ch.sbb.ftl.demo.msgsize;
+package ch.sbb.ftl.demo.helper;
 
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -53,6 +53,19 @@ public class FtlHelper {
 
 		if (System.getProperty("realmAppName") != null) {
 			FtlHelper.realmAppName = System.getProperty("realmAppName");
+		}
+		
+		if (System.getProperty("count") != null) {
+			MessageConstants.SENDING_COUNT = Integer.parseInt(System.getProperty("count"));
+			if (MessageConstants.SENDING_COUNT < 1) {
+				MessageConstants.SENDING_COUNT = Integer.MAX_VALUE;
+			}
+			
+			System.out.println(MessageConstants.SENDING_COUNT);
+		}
+		
+		if (System.getProperty("threads") != null) {
+			MessageConstants.PARALLEL_THREADS = Integer.parseInt(System.getProperty("threads"));
 		}
 
 

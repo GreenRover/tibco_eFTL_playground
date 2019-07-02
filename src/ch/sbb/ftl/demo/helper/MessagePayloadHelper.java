@@ -1,4 +1,4 @@
-package ch.sbb.ftl.demo.msgsize;
+package ch.sbb.ftl.demo.helper;
 
 import java.util.Objects;
 
