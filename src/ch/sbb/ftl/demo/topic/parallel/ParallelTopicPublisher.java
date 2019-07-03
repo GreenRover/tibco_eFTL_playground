@@ -18,6 +18,7 @@ import ch.sbb.ftl.demo.helper.MessagePayloadHelper;
 
 public class ParallelTopicPublisher {
 
+	public static final AtomicInteger messageCountPerSecond = new AtomicInteger();
 	public static final AtomicInteger messageCount = new AtomicInteger();
 
 	private static final RandomSelector rand = new RandomSelector( //
@@ -36,8 +37,10 @@ public class ParallelTopicPublisher {
 		// monitor sending statistics
 		final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 		executorService.scheduleAtFixedRate(() -> {
-			final int count = messageCount.getAndSet(0);
-			System.out.printf("%,d msg/s%n", count);
+			final int count = messageCountPerSecond.getAndSet(0);
+			final int totalCount = messageCount.get();
+			
+			System.out.printf("%,d msg/s | Total %d%n", count, totalCount);
 		}, 0, 1, TimeUnit.SECONDS);
 
 		runInParallel(realm);
@@ -73,6 +76,7 @@ public class ParallelTopicPublisher {
 			// Thread.sleep(100);
 			msg.destroy();
 			messageCount.incrementAndGet();
+			messageCountPerSecond.incrementAndGet();
 		}
 
 		System.out.println("  Cool down");

@@ -48,18 +48,15 @@ public class ParallelTopicReceiver {
 		Thread.sleep(300);
 
 		final List<List<String>> destinations = ListSplitter.chunk(rand.getAllDestinations(),
-				MessageConstants.PARALLEL_THREADS);
+				MessageConstants.PARALLEL_THREADS - 1);
 
-		// destinations.stream().flatMap(Collection::stream).forEach(System.out::println);
-
-		final ExecutorService executor = Executors.newFixedThreadPool(MessageConstants.PARALLEL_THREADS);
+		final ExecutorService executor = Executors.newCachedThreadPool();
 		for (int i = 0; i < destinations.size(); i++) {
 			final List<String> destChunk = destinations.get(i);
 			executor.submit(() -> {
 				try {
 					receive(realm, destChunk);
 				} catch (final FTLException | InterruptedException e) {
-					System.out.println(e);
 					e.printStackTrace();
 				}
 			});
@@ -82,7 +79,8 @@ public class ParallelTopicReceiver {
 		System.out.println(Thread.currentThread().getName() + " consuming " + destinations.size() + " destinations");
 		Thread.sleep(100);
 
-		final List<EventQueue> queues = new ArrayList<>();
+		final List<EventQueue> queues = new ArrayList<>(); // all queues for the
+															// current thread
 		for (final String destination : destinations) {
 			final String matcher = "{\"type\":\"" + destination + "\"}";
 			final ContentMatcher cm = realm.createContentMatcher(matcher);
@@ -93,13 +91,23 @@ public class ParallelTopicReceiver {
 			final EventQueue queue = realm.createEventQueue();
 			queue.addSubscriber(sub, new TopicListener());
 			queues.add(queue);
-
 			System.out.println("FTL TopicSubscriber start listing ... on: " + matcher);
 		}
-		while (true)
-			for (final EventQueue queue : queues) {
-				queue.dispatch();
-			}
+
+		// dispatch() is a blocking operation. call dispatch() for each queue in
+		// a separate thread
+		// TODO works, but should be improved; maybe dispatchNow() can help
+		for (final EventQueue queue : queues) {
+			new Thread(() -> {
+				while (true) {
+					try {
+						queue.dispatch();
+					} catch (final FTLException e) {
+						e.printStackTrace();
+					}
+				}
+			}).start();
+		}
 	}
 
 	private String calculateMapStatistics(final Map<Integer, Integer> m) {
