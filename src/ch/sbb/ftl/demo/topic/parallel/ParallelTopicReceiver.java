@@ -1,6 +1,5 @@
 package ch.sbb.ftl.demo.topic.parallel;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -21,7 +20,6 @@ import com.tibco.ftl.Subscriber;
 import com.tibco.ftl.SubscriberListener;
 
 import ch.sbb.ftl.demo.helper.FtlHelper;
-import ch.sbb.ftl.demo.helper.ListSplitter;
 import ch.sbb.ftl.demo.helper.MessageConstants;
 
 public class ParallelTopicReceiver {
@@ -39,30 +37,21 @@ public class ParallelTopicReceiver {
 	// statistics about priorities of received messages
 	public static Map<Integer, Integer> map = new ConcurrentHashMap<>();
 
+	private Realm realm;
+
 	public void go() throws InterruptedException, FTLException {
 		FtlHelper.setupLogging(Level.WARNING);
 		System.out.println("FTL TopicSubscriber initializing...");
 
-		final Realm realm = FtlHelper.getRealm();
+		realm = FtlHelper.getRealm();
 		System.out.println("Connected to: " + realm);
 		Thread.sleep(300);
 
-		final List<List<String>> destinations = ListSplitter.chunk(rand.getAllDestinations(),
-				MessageConstants.PARALLEL_THREADS - 1);
 
-		final ExecutorService executor = Executors.newCachedThreadPool();
-		for (int i = 0; i < destinations.size(); i++) {
-			final List<String> destChunk = destinations.get(i);
-			executor.submit(() -> {
-				try {
-					receive(realm, destChunk);
-				} catch (final FTLException | InterruptedException e) {
-					e.printStackTrace();
-				}
-			});
-		}
-		executor.shutdown();
-
+		final EventQueue queue = realm.createEventQueue();
+		
+		subscribe(queue, rand.getAllDestinations());
+		
 		final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 		executorService.scheduleAtFixedRate(() -> {
 			final int countPerSecond = messageCountPerSecond.getAndSet(0);
@@ -73,40 +62,30 @@ public class ParallelTopicReceiver {
 		executorService.scheduleAtFixedRate(() -> {
 			System.out.printf("  message prio stats: %s%n", calculateMapStatistics(map));
 		}, 0, 30, TimeUnit.SECONDS);
+		
+		
+		
+		
+		final ExecutorService executor = Executors.newFixedThreadPool(MessageConstants.PARALLEL_THREADS);
+		for (int i = 0; i < MessageConstants.PARALLEL_THREADS; i++) {
+			executor.submit(() -> {
+				while (true) {
+					queue.dispatch(1, TimeUnit.SECONDS);
+				}
+			});
+		}
+		executor.shutdown();
 	}
-
-	private void receive(final Realm realm, final List<String> destinations) throws FTLException, InterruptedException {
-		System.out.println(Thread.currentThread().getName() + " consuming " + destinations.size() + " destinations");
-		Thread.sleep(100);
-
-		final List<EventQueue> queues = new ArrayList<>(); // all queues for the
-															// current thread
+	
+	private void subscribe(final EventQueue queue, final List<String> destinations) throws FTLException {
 		for (final String destination : destinations) {
 			final String matcher = "{\"type\":\"" + destination + "\"}";
 			final ContentMatcher cm = realm.createContentMatcher(matcher);
 
 			final Subscriber sub = realm.createSubscriber(FtlHelper.ftlEndPoint, cm);
-			cm.destroy();
-
-			final EventQueue queue = realm.createEventQueue();
 			queue.addSubscriber(sub, new TopicListener());
-			queues.add(queue);
-			System.out.println("FTL TopicSubscriber start listing ... on: " + matcher);
-		}
-
-		// dispatch() is a blocking operation. call dispatch() for each queue in
-		// a separate thread
-		// TODO works, but should be improved; maybe dispatchNow() can help
-		for (final EventQueue queue : queues) {
-			new Thread(() -> {
-				while (true) {
-					try {
-						queue.dispatch();
-					} catch (final FTLException e) {
-						e.printStackTrace();
-					}
-				}
-			}).start();
+			
+			cm.destroy();
 		}
 	}
 
