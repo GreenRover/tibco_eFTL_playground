@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscriber</title>
+    <!--
+        This sample requires Twitter bootstrap for CSS. <http://getbootstrap.com/>,
+    -->
+    <link href="../lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <h1>eFTL Subscriber Sample</h1>
+
+        <label>eFTL Server URL</label>
+        <form class='form-inline'>
+            <input type="text" name="url" class='span6'
+                value="ws://shared-rcsactivemq-node02.otc-test.sbb.ch:8585/persisted" /> <button type='button'
+                class="btn" id="connectButton">Connect</button><br>
+            <input type="text" name="dureable" class='span6' value="" placeholder="" /><br>
+            <input type="text" name="matcher" class='span6' value='{"type":"demo"}' placeholder="" />
+        </form>
+
+        <a class='close log' id="clearLogButton">x</a>
+        <table id='log' class='wide table table-bordered table-striped log'>
+            <tr>
+                <th align='center'>Log</th>
+            </tr>
+            <tbody id='logbody'></tbody>
+        </table>
+    </div>
+
+    <!--
+ This sample requires jQuery, you can get your own copy of JQuery, at
+ <http://jquery.com/>
+ This sample references a copy of jQuery hosted by Google.
+-->
+    <script src="../lib/jquery.min.js"></script>
+
+    <script type="text/javascript">
+
+        var w;
+        if (typeof (Worker) !== "undefined") {
+            if (typeof (w) == "undefined") {
+                w = new Worker("subscriber.js");
+            }
+
+            w.postMessage({
+                'type': 'printVersion'
+            });
+
+            w.onmessage = function (e) {
+                console.log(e.data);
+                switch (e.data.type) {
+                    case 'msg':
+                        addMessage(e.data.msg, e.data.serenity);
+                        break;
+
+                    case 'connection':
+                    case 'reconnected':
+                        var dureable = $('input[name="dureable"]').val();
+                        if (dureable == '') {
+                            dureable = undefined;
+                        } else {
+                            window.localStorage.setItem("ftl_dureable", dureable);
+                        }
+
+                        w.postMessage({
+                            'type': 'subscribe',
+                            'dureable': dureable,
+                            'matcher': $('input[name="matcher"]').val(),
+                        });
+                        setTimeout(updateButtons);
+                        break;
+
+                    case 'disconnected':
+                        isConnected = false;
+                        clearInterval(timer);
+                        setTimeout(updateButtons);
+                        break;
+                }
+            };
+        }
+
+
+        var isConnected = false;
+        var lastURL = null;
+        var counter = 0;
+
+        var dureable = window.localStorage.getItem('ftl_dureable');
+        if (dureable == null) {
+            // On first run create a random dureabe.
+            dureable = 'dureable-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+        $('input[name="dureable"]').attr('value', dureable);
+
+        function printVersion() {
+            addInfo(eFTL.getVersion());
+        }
+
+        function doConnect() {
+            w.postMessage({
+                'type': 'connect',
+                'url': $('input[name="url"]').val(),
+                'username': "admin",
+                'password': "admin-pw",
+                'clientId': undefined,
+            });
+        }
+
+        function doDisconnect() {
+            w.postMessage({
+                'type': 'disconnect',
+            });
+            isConnected = false;
+
+            return false;
+        }
+
+        function addMessage(message, type) {
+            $('.log').show();
+            message = $('<div/>').text(message).html();
+            $('#log > tbody > tr:last').after('<tr class="' + type + '"><td>' + message + '</td></tr>');
+        }
+
+        function clearLog() {
+            $('tr.info').remove();
+            $('tr.warning').remove();
+            $('tr.error').remove();
+            $('tr.success').remove();
+            if (isConnected === false) {
+                $('.log').hide();
+            }
+
+            return false;
+        }
+
+        $('.log').hide();
+
+        function isNewConnection() {
+            var currentURL = $('input[name="url"]').val();
+            return currentURL !== lastURL;
+        }
+
+
+        function updateButtons() {
+            if (isNewConnection()) {
+                $('#connectButton').text('Connect');
+            } else if (isConnected) {
+                $('#connectButton').text('Disconnect');
+            } else {
+                $('#connectButton').text('Connect');
+            }
+        }
+
+        $('input[name="url"]').keyup(updateButtons);
+
+        $('#clearLogButton').click(clearLog);
+
+        $('#connectButton').click(function () {
+            if (isConnected && isNewConnection() === false) {
+                doDisconnect();
+            } else {
+                // connecting to a different eFTL server
+                doDisconnect();
+                doConnect();
+            }
+
+            lastURL = $('input[name="url"]').val();
+
+            setTimeout(updateButtons);
+
+            return false;
+        });
+
+        $(document).ready(updateButtons);
+
+    </script>
+</body>
+
+</html>
