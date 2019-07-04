@@ -1,0 +1,1185 @@
+{
+  "name": "_default_realm",
+  "id": 76026,
+  "description": "",
+  "version": 1,
+  "realm_server_version": "6.1.0   V5",
+  "realm_uuid": "aef4ec0d-8842-4ac5-b84f-553609113cbe",
+  "server_uuid": "53043ba1-f284-4e5d-a276-f20ced71caf5",
+  "server_time": "",
+  "properties": {
+    "client_monitor_sample_interval": 60,
+    "client_server_heartbeat": 60,
+    "client_timeout_server": 180,
+    "manage_all_formats": false,
+    "monitor_matching_statistics": true,
+    "openssl_cipher_suites": "ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384",
+    "openssl_cipher_suites_custom": "",
+    "openssl_cipher_suites_selection": "defaults",
+    "openssl_context_options": "0x17134000",
+    "openssl_context_options_custom": "",
+    "openssl_context_options_selection": "defaults",
+    "realm_is_secure": false,
+    "server_client_heartbeat": 60,
+    "server_timeout_client": 3600,
+    "warn_about_insecure_transports": true,
+    "max_deployment_history": 25,
+    "user_friendly_name": "realm.shared-rcssolace-node02",
+    "com.tibco.ftl.client.publisher.persistence.retry.duration": -1,
+    "com.tibco.ftl.client.subscriber.persistence.retry.duration": -1,
+    "com.tibco.ftl.client.map.persistence.retry.duration": -1
+  },
+  "applications": [
+    {
+      "last_modified": "2019-06-26T20:12:59.610076529Z",
+      "last_modified_millis": 1561579979610,
+      "last_modified_by": "admin",
+      "name": "direct",
+      "description": "",
+      "manage_all_formats": false,
+      "preload_format_names": [],
+      "endpoints": [
+        {
+          "name": "default",
+          "description": ""
+        }
+      ],
+      "instances": [
+        {
+          "name": "default",
+          "description": "",
+          "matcher": {
+            "host": "",
+            "identifier": ""
+          },
+          "endpoints": [
+            {
+              "dynamic_durable": {},
+              "subscribers": [],
+              "list_name": "_direct_@_default_@_default",
+              "endpoint_name": "default"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "last_modified": "2019-06-14T13:42:33.477613969Z",
+      "last_modified_millis": 1560519753477,
+      "last_modified_by": "ftl",
+      "name": "_GroupClient",
+      "description": "",
+      "manage_all_formats": false,
+      "preload_format_names": [],
+      "endpoints": [
+        {
+          "name": "_CommonWs",
+          "description": ""
+        },
+        {
+          "name": "_Common",
+          "description": ""
+        }
+      ],
+      "instances": [
+        {
+          "name": "default",
+          "description": "",
+          "matcher": {
+            "host": "",
+            "identifier": ""
+          },
+          "endpoints": [
+            {
+              "dynamic_durable": {},
+              "subscribers": [],
+              "list_name": "__GroupClient_@_default_@__CommonWs",
+              "endpoint_name": "_CommonWs"
+            },
+            {
+              "dynamic_durable": {},
+              "subscribers": [],
+              "list_name": "__GroupClient_@_default_@__Common",
+              "endpoint_name": "_Common"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "last_modified": "2019-06-23T21:07:56.773433949Z",
+      "last_modified_millis": 1561324076773,
+      "last_modified_by": "admin",
+      "name": "lastest",
+      "description": "",
+      "manage_all_formats": false,
+      "preload_format_names": [],
+      "endpoints": [
+        {
+          "name": "default",
+          "description": "",
+          "store": "ftl.persistent.store",
+          "cluster": "ftl.default.cluster"
+        }
+      ],
+      "instances": [
+        {
+          "name": "default",
+          "description": "",
+          "matcher": {
+            "host": "",
+            "identifier": ""
+          },
+          "endpoints": [
+            {
+              "dynamic_durable": {
+                "template": "ftl.shared.template"
+              },
+              "subscribers": [],
+              "list_name": "_lastest_@_default_@_default",
+              "endpoint_name": "default"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "last_modified": "2019-06-23T21:08:49.411279449Z",
+      "last_modified_millis": 1561324129411,
+      "last_modified_by": "admin",
+      "name": "clientServer",
+      "description": "",
+      "manage_all_formats": false,
+      "preload_format_names": [],
+      "endpoints": [
+        {
+          "name": "server",
+          "description": ""
+        },
+        {
+          "name": "client",
+          "description": ""
+        }
+      ],
+      "instances": [
+        {
+          "name": "default",
+          "description": "",
+          "matcher": {
+            "host": "",
+            "identifier": ""
+          },
+          "endpoints": [
+            {
+              "dynamic_durable": {},
+              "subscribers": [],
+              "list_name": "_clientServer_@_default_@_server",
+              "endpoint_name": "server"
+            },
+            {
+              "dynamic_durable": {},
+              "subscribers": [],
+              "list_name": "_clientServer_@_default_@_client",
+              "endpoint_name": "client"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "last_modified": "2019-06-27T11:03:32.836515348Z",
+      "last_modified_millis": 1561633412836,
+      "last_modified_by": "admin",
+      "name": "ihpt_direct",
+      "description": "",
+      "manage_all_formats": false,
+      "preload_format_names": [],
+      "endpoints": [
+        {
+          "name": "default",
+          "description": ""
+        }
+      ],
+      "instances": [
+        {
+          "name": "default",
+          "description": "",
+          "matcher": {
+            "host": "",
+            "identifier": ""
+          },
+          "endpoints": [
+            {
+              "dynamic_durable": {},
+              "subscribers": [],
+              "list_name": "_ihpt_direct_@_default_@_default",
+              "endpoint_name": "default"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "last_modified": "2019-06-14T13:42:33.477613969Z",
+      "last_modified_millis": 1560519753477,
+      "last_modified_by": "ftl",
+      "name": "_GroupServer",
+      "description": "",
+      "manage_all_formats": false,
+      "preload_format_names": [],
+      "endpoints": [
+        {
+          "name": "_Common",
+          "description": ""
+        }
+      ],
+      "instances": [
+        {
+          "name": "PrimaryGroupServer",
+          "description": "",
+          "matcher": {
+            "host": "",
+            "identifier": "Primary"
+          },
+          "endpoints": [
+            {
+              "dynamic_durable": {},
+              "subscribers": [],
+              "list_name": "__GroupServer_@_PrimaryGroupServer_@__Common",
+              "endpoint_name": "_Common"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "last_modified": "2019-06-26T20:07:51.269071182Z",
+      "last_modified_millis": 1561579671269,
+      "last_modified_by": "admin",
+      "name": "_eFTL_Cluster",
+      "description": "",
+      "manage_all_formats": false,
+      "preload_format_names": [],
+      "endpoints": [
+        {
+          "name": "eftl_channel_app_facing_endpoint_lasttest",
+          "description": "",
+          "store": "ftl.persistent.store",
+          "cluster": "ftl.default.cluster"
+        },
+        {
+          "name": "eftl_cluster_facing_endpoint",
+          "description": ""
+        },
+        {
+          "name": "eftl_channel_app_facing_endpoint_channel",
+          "description": ""
+        }
+      ],
+      "instances": [
+        {
+          "name": "default",
+          "description": "",
+          "matcher": {
+            "host": "",
+            "identifier": ""
+          },
+          "endpoints": [
+            {
+              "dynamic_durable": {
+                "template": "ftl.shared.template"
+              },
+              "subscribers": [],
+              "list_name": "__eFTL_Cluster_@_default_@_eftl_channel_app_facing_endpoint_lasttest",
+              "endpoint_name": "eftl_channel_app_facing_endpoint_lasttest"
+            },
+            {
+              "dynamic_durable": {},
+              "subscribers": [],
+              "list_name": "__eFTL_Cluster_@_default_@_eftl_cluster_facing_endpoint",
+              "endpoint_name": "eftl_cluster_facing_endpoint"
+            },
+            {
+              "dynamic_durable": {},
+              "subscribers": [],
+              "list_name": "__eFTL_Cluster_@_default_@_eftl_channel_app_facing_endpoint_channel",
+              "endpoint_name": "eftl_channel_app_facing_endpoint_channel"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "clusters": [
+    {
+      "last_modified": "0001-01-01T00:00:00Z",
+      "last_modified_millis": 0,
+      "last_modified_by": "",
+      "name": "ftl.default.cluster",
+      "description": "",
+      "client_pserver_heartbeat": 2,
+      "client_timeout_pserver": 5,
+      "pserver_pserver_heartbeat": 0.5,
+      "pserver_timeout_pserver": 3,
+      "dr_enabled": false,
+      "primary_set": "_setA",
+      "force_quorum_delay_factor": 10,
+      "stores": [
+        {
+          "last_modified": "2019-06-17T13:38:45.176914135Z",
+          "last_modified_millis": 1560778725176,
+          "last_modified_by": "admin",
+          "name": "ftl.persistent.store",
+          "zones": [],
+          "bytelimit": "",
+          "publisher_settings": {
+            "mode": "store_confirm_send"
+          },
+          "dynamic_durable_limit": 0,
+          "description": "",
+          "durable_templates": [
+            {
+              "name": "ftl.lastvalue.template",
+              "description": "",
+              "type": "lastvalue",
+              "ack_settings": {
+                "mode": "async",
+                "batch_count": 1000,
+                "batch_time": 0.1
+              },
+              "prefetch": 1024,
+              "message_ttl": "0",
+              "durable_ttl": "0"
+            },
+            {
+              "name": "ftl.map.template",
+              "description": "",
+              "type": "lastvalue",
+              "ack_settings": {
+                "mode": "async",
+                "batch_count": 1000,
+                "batch_time": 0.1
+              },
+              "prefetch": 1024,
+              "message_ttl": "0",
+              "durable_ttl": "0"
+            },
+            {
+              "name": "ftl.pubsub.template",
+              "description": "",
+              "type": "standard",
+              "ack_settings": {
+                "mode": "async",
+                "batch_count": 1000,
+                "batch_time": 0.1
+              },
+              "prefetch": 1024,
+              "message_ttl": "0",
+              "durable_ttl": "5"
+            },
+            {
+              "name": "ftl.shared.template",
+              "description": "",
+              "type": "shared",
+              "ack_settings": {
+                "mode": "async",
+                "batch_count": 1000,
+                "batch_time": 0.1
+              },
+              "prefetch": 1024,
+              "message_ttl": "0",
+              "durable_ttl": "0"
+            },
+            {
+              "name": "ftl.standard.template",
+              "description": "",
+              "type": "standard",
+              "ack_settings": {
+                "mode": "async",
+                "batch_count": 1000,
+                "batch_time": 0.1
+              },
+              "prefetch": 1024,
+              "message_ttl": "0",
+              "durable_ttl": "0"
+            }
+          ],
+          "durables": [],
+          "replicated": -1,
+          "index": []
+        },
+        {
+          "last_modified": "2019-06-14T13:42:33.4776179Z",
+          "last_modified_millis": 1560519753477,
+          "last_modified_by": "ftl",
+          "name": "ftl.system.mon.store",
+          "zones": [],
+          "bytelimit": "",
+          "publisher_settings": {
+            "mode": "store_send_noconfirm"
+          },
+          "dynamic_durable_limit": 0,
+          "description": "",
+          "durable_templates": [
+            {
+              "name": "ftl.map.template",
+              "description": "",
+              "type": "lastvalue",
+              "ack_settings": {
+                "mode": "async",
+                "batch_count": 1000,
+                "batch_time": 0.1
+              },
+              "prefetch": 1024,
+              "message_ttl": "8.64e+13",
+              "durable_ttl": "0"
+            },
+            {
+              "name": "ftl.pubsub.template",
+              "description": "",
+              "type": "standard",
+              "ack_settings": {
+                "mode": "async",
+                "batch_count": 1000,
+                "batch_time": 0.1
+              },
+              "prefetch": 1024,
+              "message_ttl": "0",
+              "durable_ttl": "5"
+            }
+          ],
+          "durables": [],
+          "replicated": 1,
+          "index": []
+        },
+        {
+          "last_modified": "2019-06-14T13:42:33.477622058Z",
+          "last_modified_millis": 1560519753477,
+          "last_modified_by": "ftl",
+          "name": "ftl.system.log.store",
+          "zones": [],
+          "bytelimit": "",
+          "publisher_settings": {
+            "mode": "store_send_noconfirm"
+          },
+          "dynamic_durable_limit": 0,
+          "description": "",
+          "durable_templates": [
+            {
+              "name": "ftl.map.template",
+              "description": "",
+              "type": "lastvalue",
+              "ack_settings": {
+                "mode": "async",
+                "batch_count": 1000,
+                "batch_time": 0.1
+              },
+              "prefetch": 1024,
+              "message_ttl": "8.64e+13",
+              "durable_ttl": "0"
+            },
+            {
+              "name": "ftl.pubsub.template",
+              "description": "",
+              "type": "standard",
+              "ack_settings": {
+                "mode": "async",
+                "batch_count": 1000,
+                "batch_time": 0.1
+              },
+              "prefetch": 1024,
+              "message_ttl": "0",
+              "durable_ttl": "5"
+            }
+          ],
+          "durables": [],
+          "replicated": 1,
+          "index": []
+        },
+        {
+          "last_modified": "2019-06-14T13:42:33.477623064Z",
+          "last_modified_millis": 1560519753477,
+          "last_modified_by": "ftl",
+          "name": "ftl.nonpersistent.store",
+          "zones": [],
+          "bytelimit": "",
+          "publisher_settings": {
+            "mode": "store_send_noconfirm"
+          },
+          "dynamic_durable_limit": 0,
+          "description": "",
+          "durable_templates": [
+            {
+              "name": "ftl.lastvalue.template",
+              "description": "",
+              "type": "lastvalue",
+              "ack_settings": {
+                "mode": "async",
+                "batch_count": 1000,
+                "batch_time": 0.1
+              },
+              "prefetch": 1024,
+              "message_ttl": "0",
+              "durable_ttl": "0"
+            },
+            {
+              "name": "ftl.map.template",
+              "description": "",
+              "type": "lastvalue",
+              "ack_settings": {
+                "mode": "async",
+                "batch_count": 1000,
+                "batch_time": 0.1
+              },
+              "prefetch": 1024,
+              "message_ttl": "0",
+              "durable_ttl": "0"
+            },
+            {
+              "name": "ftl.pubsub.template",
+              "description": "",
+              "type": "standard",
+              "ack_settings": {
+                "mode": "async",
+                "batch_count": 1000,
+                "batch_time": 0.1
+              },
+              "prefetch": 1024,
+              "message_ttl": "0",
+              "durable_ttl": "5"
+            },
+            {
+              "name": "ftl.shared.template",
+              "description": "",
+              "type": "shared",
+              "ack_settings": {
+                "mode": "async",
+                "batch_count": 1000,
+                "batch_time": 0.1
+              },
+              "prefetch": 1024,
+              "message_ttl": "0",
+              "durable_ttl": "0"
+            },
+            {
+              "name": "ftl.standard.template",
+              "description": "",
+              "type": "standard",
+              "ack_settings": {
+                "mode": "async",
+                "batch_count": 1000,
+                "batch_time": 0.1
+              },
+              "prefetch": 1024,
+              "message_ttl": "0",
+              "durable_ttl": "0"
+            }
+          ],
+          "durables": [],
+          "replicated": 1,
+          "index": []
+        },
+        {
+          "last_modified": "2019-06-14T13:42:33.477625194Z",
+          "last_modified_millis": 1560519753477,
+          "last_modified_by": "ftl",
+          "name": "ftl.system.inbox.store",
+          "zones": [],
+          "bytelimit": "",
+          "publisher_settings": {
+            "mode": "store_send_noconfirm"
+          },
+          "dynamic_durable_limit": 0,
+          "description": "",
+          "durable_templates": [
+            {
+              "name": "ftl.pubsub.template",
+              "description": "",
+              "type": "standard",
+              "ack_settings": {
+                "mode": "async",
+                "batch_count": 1000,
+                "batch_time": 0.1
+              },
+              "prefetch": 1024,
+              "message_ttl": "0",
+              "durable_ttl": "5"
+            }
+          ],
+          "durables": [],
+          "replicated": 1,
+          "index": []
+        }
+      ],
+      "pserver_sets": [
+        {
+          "name": "_setA",
+          "description": "",
+          "role": "persist",
+          "reachability": {},
+          "pservers": [
+            {
+              "last_modified": "0001-01-01T00:00:00Z",
+              "last_modified_millis": 0,
+              "last_modified_by": "",
+              "name": "default_shared-rcssolace-node02",
+              "description": "",
+              "weight": 10,
+              "client_transports": [
+                {
+                  "transport": {
+                    "last_modified": "0001-01-01T00:00:00Z",
+                    "last_modified_millis": 0,
+                    "last_modified_by": "",
+                    "name": "_client_pri_transport_default_shared-rcssolace-node02",
+                    "description": "client primary transport for ftl.default.cluster",
+                    "relationships": [],
+                    "config": {
+                      "transport_type": "auto",
+                      "backlog_full_wait": "0",
+                      "recv_spin_limit": "0",
+                      "backlog_size": "64mb"
+                    }
+                  },
+                  "matchers": []
+                }
+              ],
+              "cluster_transport": {
+                "transport": {
+                  "last_modified": "0001-01-01T00:00:00Z",
+                  "last_modified_millis": 0,
+                  "last_modified_by": "",
+                  "name": "_cluster_transport_default_shared-rcssolace-node02",
+                  "description": "cluster transport for ftl.default.cluster",
+                  "relationships": [],
+                  "config": {
+                    "transport_type": "auto",
+                    "backlog_full_wait": "0",
+                    "recv_spin_limit": "0",
+                    "backlog_size": "256mb"
+                  }
+                }
+              },
+              "dr_transport": {},
+              "inter_cluster_transport": {}
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "last_modified": "2019-06-14T13:42:33.477613969Z",
+      "last_modified_millis": 1560519753477,
+      "last_modified_by": "ftl",
+      "name": "ftl.forwarding.cluster",
+      "description": "This store is only for adding global stores, you cannot add pservers sets etc.. to this cluster",
+      "client_pserver_heartbeat": 2,
+      "client_timeout_pserver": 5,
+      "pserver_pserver_heartbeat": 0.5,
+      "pserver_timeout_pserver": 3,
+      "dr_enabled": false,
+      "primary_set": "",
+      "stores": null,
+      "pserver_sets": null
+    }
+  ],
+  "eftl_clusters": [
+    {
+      "last_modified": "2019-06-26T20:07:51.269071182Z",
+      "last_modified_millis": 1561579671269,
+      "last_modified_by": "admin",
+      "name": "Cluster",
+      "description": "",
+      "jaas_required": true,
+      "secret": "tcuAxhxKQFDaFpLSjFbc",
+      "max_connections": 0,
+      "channels": [
+        {
+          "name": "channel",
+          "description": "",
+          "max_pending_acks": 100,
+          "max_message_size": "8000kb",
+          "max_connections": 0,
+          "jaas_publish_group": "",
+          "jaas_subscribe_group": "",
+          "jaas_map_group": "",
+          "apns_cert": "",
+          "apns_cert_pass": "",
+          "apns_sandbox": false,
+          "server_heartbeat": 240,
+          "client_timeout": 600,
+          "client_connect_timeout": 60,
+          "client_reconnect_timeout": 60,
+          "provider_type": "ftl",
+          "ftl_exchange_format": "",
+          "max_queue_size": 1000,
+          "persistence_store": "",
+          "dynamic_durable_template": "",
+          "shared_durable_template": "ftl.shared.template",
+          "last_value_durable_template": "ftl.lastvalue.template",
+          "map_template": "ftl.map.template",
+          "static_durables": [],
+          "transports": [
+            "docker"
+          ]
+        },
+        {
+          "name": "lasttest",
+          "description": "",
+          "max_pending_acks": 100,
+          "max_message_size": "8kb",
+          "max_connections": 0,
+          "jaas_publish_group": "",
+          "jaas_subscribe_group": "",
+          "jaas_map_group": "",
+          "apns_cert": "",
+          "apns_cert_pass": "",
+          "apns_sandbox": false,
+          "server_heartbeat": 240,
+          "client_timeout": 600,
+          "client_connect_timeout": 60,
+          "client_reconnect_timeout": 60,
+          "provider_type": "ftl",
+          "ftl_exchange_format": "",
+          "max_queue_size": 1000,
+          "persistence_store": "ftl.persistent.store",
+          "dynamic_durable_template": "ftl.shared.template",
+          "shared_durable_template": "ftl.shared.template",
+          "last_value_durable_template": "ftl.lastvalue.template",
+          "map_template": "ftl.map.template",
+          "static_durables": [],
+          "transports": [
+            "lasttest"
+          ]
+        }
+      ]
+    }
+  ],
+  "formats": [],
+  "transports": [
+    {
+      "last_modified": "2019-06-14T13:42:33.477613969Z",
+      "last_modified_millis": 1560519753477,
+      "last_modified_by": "ftl",
+      "name": "_GroupClientTport",
+      "description": "",
+      "relationships": [
+        {
+          "transport": "_GroupServerTport1"
+        }
+      ],
+      "config": {
+        "transport_type": "dtcp",
+        "backlog_full_wait": "0",
+        "recv_spin_limit": "0",
+        "backlog_size": "64mb",
+        "port": "0",
+        "subnet_mask": "",
+        "virtual_name": "_Primary_Group_Server_VName",
+        "mode": "client"
+      }
+    },
+    {
+      "last_modified": "2019-06-14T13:42:33.477613969Z",
+      "last_modified_millis": 1560519753477,
+      "last_modified_by": "ftl",
+      "name": "_GroupClientTport2",
+      "description": "",
+      "relationships": [
+        {
+          "transport": "_GroupServerTport2"
+        }
+      ],
+      "config": {
+        "transport_type": "auto",
+        "backlog_full_wait": "0",
+        "recv_spin_limit": "0",
+        "backlog_size": "64mb"
+      }
+    },
+    {
+      "last_modified": "2019-06-14T13:42:33.477613969Z",
+      "last_modified_millis": 1560519753477,
+      "last_modified_by": "ftl",
+      "name": "_GroupServerTport1",
+      "description": "",
+      "relationships": [
+        {
+          "transport": "_GroupClientTport"
+        }
+      ],
+      "config": {
+        "transport_type": "dtcp",
+        "backlog_full_wait": "0",
+        "recv_spin_limit": "0",
+        "backlog_size": "64mb",
+        "port": "0",
+        "subnet_mask": "",
+        "virtual_name": "_Primary_Group_Server_VName",
+        "mode": "server"
+      }
+    },
+    {
+      "last_modified": "2019-06-14T13:42:33.477613969Z",
+      "last_modified_millis": 1560519753477,
+      "last_modified_by": "ftl",
+      "name": "_GroupServerTport2",
+      "description": "",
+      "relationships": [
+        {
+          "transport": "_GroupClientTport2"
+        }
+      ],
+      "config": {
+        "transport_type": "auto",
+        "backlog_full_wait": "0",
+        "recv_spin_limit": "0",
+        "backlog_size": "64mb"
+      }
+    },
+    {
+      "last_modified": "2019-06-23T21:00:43.269499788Z",
+      "last_modified_millis": 1561323643269,
+      "last_modified_by": "admin",
+      "name": "client",
+      "description": "",
+      "relationships": [],
+      "config": {
+        "transport_type": "tcp",
+        "backlog_full_wait": "0",
+        "recv_spin_limit": "0",
+        "backlog_size": "64mb",
+        "hosts": [
+          {
+            "host": "10.172.113.11",
+            "port": "9000",
+            "mode": "connect"
+          }
+        ]
+      }
+    },
+    {
+      "last_modified": "2019-06-26T20:07:36.202474788Z",
+      "last_modified_millis": 1561579656202,
+      "last_modified_by": "admin",
+      "name": "docker",
+      "description": "",
+      "relationships": [],
+      "config": {
+        "transport_type": "dtcp",
+        "backlog_full_wait": "0",
+        "recv_spin_limit": "0",
+        "backlog_size": "64mb",
+        "port": "0",
+        "subnet_mask": "",
+        "mode": ""
+      }
+    },
+    {
+      "last_modified": "2019-06-17T13:33:42.221280932Z",
+      "last_modified_millis": 1560778422221,
+      "last_modified_by": "admin",
+      "name": "eftl_cluster_facing_transport_Cluster",
+      "description": "",
+      "relationships": [],
+      "config": {
+        "transport_type": "auto",
+        "backlog_full_wait": "0",
+        "recv_spin_limit": "0",
+        "backlog_size": "64mb"
+      }
+    },
+    {
+      "last_modified": "2019-06-27T11:03:20.17726998Z",
+      "last_modified_millis": 1561633400177,
+      "last_modified_by": "admin",
+      "name": "ihpt_transport",
+      "description": "",
+      "relationships": [],
+      "config": {
+        "transport_type": "dtcp",
+        "backlog_full_wait": "0",
+        "recv_spin_limit": "0",
+        "backlog_size": "64mb",
+        "port": "0",
+        "subnet_mask": "",
+        "mode": ""
+      }
+    },
+    {
+      "last_modified": "2019-06-14T13:51:32.993511828Z",
+      "last_modified_millis": 1560520292993,
+      "last_modified_by": "admin",
+      "name": "lasttest",
+      "description": "",
+      "relationships": [],
+      "config": {
+        "transport_type": "dtcp",
+        "backlog_full_wait": "0",
+        "recv_spin_limit": "0",
+        "backlog_size": "64mb",
+        "port": "0",
+        "subnet_mask": "",
+        "mode": ""
+      }
+    },
+    {
+      "last_modified": "2019-06-24T20:51:31.064082804Z",
+      "last_modified_millis": 1561409491064,
+      "last_modified_by": "admin",
+      "name": "mesh",
+      "description": "",
+      "relationships": [],
+      "config": {
+        "transport_type": "dtcp",
+        "backlog_full_wait": "0",
+        "recv_spin_limit": "0",
+        "backlog_size": "64mb",
+        "port": "0",
+        "subnet_mask": "10.0.0.0/8",
+        "virtual_name": "test",
+        "mode": ""
+      }
+    },
+    {
+      "last_modified": "2019-06-27T11:05:37.853705983Z",
+      "last_modified_millis": 1561633537853,
+      "last_modified_by": "admin",
+      "name": "meshB",
+      "description": "",
+      "relationships": [],
+      "config": {
+        "transport_type": "dtcp",
+        "backlog_full_wait": "0",
+        "recv_spin_limit": "0",
+        "backlog_size": "64mb",
+        "port": "63000",
+        "subnet_mask": "10.0.0.0/8",
+        "virtual_name": "mesh",
+        "mode": ""
+      }
+    },
+    {
+      "last_modified": "2019-06-23T21:00:44.956650048Z",
+      "last_modified_millis": 1561323644956,
+      "last_modified_by": "admin",
+      "name": "server",
+      "description": "",
+      "relationships": [],
+      "config": {
+        "transport_type": "tcp",
+        "backlog_full_wait": "0",
+        "recv_spin_limit": "0",
+        "backlog_size": "64mb",
+        "hosts": [
+          {
+            "host": "10.172.113.11",
+            "port": "9000",
+            "mode": "listen"
+          }
+        ]
+      }
+    },
+    {
+      "last_modified": "2019-06-26T20:12:46.015089084Z",
+      "last_modified_millis": 1561579966015,
+      "last_modified_by": "admin",
+      "name": "vpn_clients",
+      "description": "",
+      "relationships": [],
+      "config": {
+        "transport_type": "dtcp",
+        "backlog_full_wait": "0",
+        "recv_spin_limit": "0",
+        "backlog_size": "64mb",
+        "port": "9001",
+        "subnet_mask": "172.0.0.0/8",
+        "virtual_name": "mesh",
+        "mode": ""
+      }
+    }
+  ],
+  "connector_lists": [
+    {
+      "name": "_direct_@_default_@_default",
+      "id": 0,
+      "description": "",
+      "connectors": [
+        {
+          "transport": "vpn_clients",
+          "receive": true,
+          "receive_inbox": true,
+          "send": true,
+          "send_inbox": true
+        },
+        {
+          "transport": "meshB",
+          "receive": true,
+          "receive_inbox": true,
+          "send": true,
+          "send_inbox": true
+        }
+      ]
+    },
+    {
+      "name": "__GroupClient_@_default_@__CommonWs",
+      "id": 16027,
+      "description": "",
+      "connectors": [
+        {
+          "transport": "_GroupClientTport2",
+          "receive": true,
+          "receive_inbox": true,
+          "send": true,
+          "send_inbox": true
+        }
+      ]
+    },
+    {
+      "name": "__GroupClient_@_default_@__Common",
+      "id": 16025,
+      "description": "",
+      "connectors": [
+        {
+          "transport": "_GroupClientTport",
+          "receive": true,
+          "receive_inbox": true,
+          "send": true,
+          "send_inbox": true
+        }
+      ]
+    },
+    {
+      "name": "_lastest_@_default_@_default",
+      "id": 0,
+      "description": "",
+      "connectors": [
+        {
+          "transport": "lasttest",
+          "receive": true,
+          "receive_inbox": true,
+          "send": true,
+          "send_inbox": true
+        }
+      ]
+    },
+    {
+      "name": "_clientServer_@_default_@_server",
+      "id": 0,
+      "description": "",
+      "connectors": [
+        {
+          "transport": "server",
+          "receive": true,
+          "receive_inbox": true,
+          "send": true,
+          "send_inbox": true
+        }
+      ]
+    },
+    {
+      "name": "_clientServer_@_default_@_client",
+      "id": 0,
+      "description": "",
+      "connectors": [
+        {
+          "transport": "client",
+          "receive": true,
+          "receive_inbox": true,
+          "send": true,
+          "send_inbox": true
+        }
+      ]
+    },
+    {
+      "name": "_ihpt_direct_@_default_@_default",
+      "id": 0,
+      "description": "",
+      "connectors": [
+        {
+          "transport": "ihpt_transport",
+          "receive": true,
+          "receive_inbox": true,
+          "send": true,
+          "send_inbox": true
+        }
+      ]
+    },
+    {
+      "name": "__GroupServer_@_PrimaryGroupServer_@__Common",
+      "id": 16029,
+      "description": "",
+      "connectors": [
+        {
+          "transport": "_GroupServerTport1",
+          "receive": true,
+          "receive_inbox": true,
+          "send": true,
+          "send_inbox": true
+        },
+        {
+          "transport": "_GroupServerTport2",
+          "receive": true,
+          "receive_inbox": true,
+          "send": true,
+          "send_inbox": true
+        }
+      ]
+    },
+    {
+      "name": "__eFTL_Cluster_@_default_@_eftl_channel_app_facing_endpoint_lasttest",
+      "id": 0,
+      "description": "",
+      "connectors": [
+        {
+          "transport": "lasttest",
+          "receive": true,
+          "receive_inbox": true,
+          "send": true,
+          "send_inbox": true
+        }
+      ]
+    },
+    {
+      "name": "__eFTL_Cluster_@_default_@_eftl_cluster_facing_endpoint",
+      "id": 0,
+      "description": "",
+      "connectors": [
+        {
+          "transport": "eftl_cluster_facing_transport_Cluster",
+          "receive": true,
+          "receive_inbox": true,
+          "send": true,
+          "send_inbox": true
+        }
+      ]
+    },
+    {
+      "name": "__eFTL_Cluster_@_default_@_eftl_channel_app_facing_endpoint_channel",
+      "id": 0,
+      "description": "",
+      "connectors": [
+        {
+          "transport": "docker",
+          "receive": true,
+          "receive_inbox": true,
+          "send": true,
+          "send_inbox": true
+        }
+      ]
+    }
+  ],
+  "product_data": {
+    "_ftlui": {
+      "transport_groups": {
+        "client": "test",
+        "docker": "mesh",
+        "mesh": "test",
+        "meshB": "mesh",
+        "server": "test",
+        "vpn_clients": "mesh"
+      }
+    }
+  },
+  "zones": []
+}
