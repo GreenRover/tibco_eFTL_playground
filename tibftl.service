@@ -1,0 +1,17 @@
+[Unit]
+Description=Tibco FTL Real Server
+After=network.target auditd.service
+
+[Service]
+Environment=TIBFTL_ROOT=/opt/tibco/ftl/6.1/
+ExecStart=/opt/tibco/ftl/6.1/bin/tibftlserver -n sbb_test02 -c /opt/tibco/ftl/sbb/hh_test.yaml
+ExecStop=/opt/tibco/ftl/6.1/bin/tibftladmin -rs http://localhost:8585 --shutdown -u admin -pw admin-pw > /dev/null 2>&1
+KillMode=process
+Restart=on-failure
+Type=simple
+WorkingDirectory=/opt/tibco/ftl/6.1
+
+[Install]
+WantedBy=multi-user.target
+Alias=tibftl.service
+

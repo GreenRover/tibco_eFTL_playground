@@ -17,7 +17,7 @@ public class FtlHelper {
 	// https://docs.tibco.com/pub/ftl/5.0.0/doc/html/GUID-560E459A-87E2-437A-AF6D-996013FE1896.html
 	public static String realmAppName = "non_persisted"; // "persisted"
 	public static String ftlEndPoint = "default";
-	public static String realmServer = "http://shared-rcsactivemq-node02.otc-test.sbb.ch:8585";
+	public static String realmServer = "http://shared-rcsactivemq-node01.otc-test.sbb.ch:8585|http://shared-rcsactivemq-node02.otc-test.sbb.ch:8585";
 	public static String realmUser = "admin";
 	public static String realmPassword = "admin-pw";
 

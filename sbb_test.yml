@@ -1,0 +1,28 @@
+globals:
+  core.servers:
+    sbb_test01: shared-rcsactivemq-node01.otc-test.sbb.ch:8585
+    sbb_test02: shared-rcsactivemq-node02.otc-test.sbb.ch:8585
+    sbb_test03: shared-rcsactivemq-node01.otc-test.sbb.ch:8686
+  auth.url: file:///opt/tibco/ftl/6.1/samples/jaas/users.txt
+services:
+  realm:
+    user: primary
+    password: primary-pw
+  persistence: {}
+  eftl:  {}
+  bridge: {}
+servers:
+  sbb_test01:
+  - realm:
+      data: /root/ftl-server/sbb_test
+  - eftl:
+      loglevel: info
+  sbb_test02:
+  - realm:
+      data: /root/ftl-server/sbb_test1
+  - eftl:
+      loglevel: info
+  sbb_test03:
+  - realm:
+      data: /root/ftl-server/sbb_test2
+
