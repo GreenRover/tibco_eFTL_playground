@@ -18,6 +18,8 @@
     <target name="deploy">
         <scp file="${dir.jarfile}/ftl.jar" todir="cloud-user@shared-rcsactivemq-node01.otc-test.sbb.ch:/tmp" keyfile="H:/.ssh/id_rcs-operator" trust="true" />
         <scp file="${dir.jarfile}/ftl.jar" todir="cloud-user@shared-rcsactivemq-node02.otc-test.sbb.ch:/tmp" keyfile="H:/.ssh/id_rcs-operator" trust="true" />
+        <scp file="${dir.jarfile}/ftl.jar" todir="cloud-user@shared-rcssolace-node01.otc-test.sbb.ch:/tmp" keyfile="H:/.ssh/id_rcs-operator" trust="true" />
+        <scp file="${dir.jarfile}/ftl.jar" todir="cloud-user@shared-rcssolace-node02.otc-test.sbb.ch:/tmp" keyfile="H:/.ssh/id_rcs-operator" trust="true" />
         <scp file="${dir.jarfile}/ftl.jar" todir="rcs@rcsmsg01:/tmp" keyfile="H:/.ssh/id_rcs-operator" trust="true" />
         <scp file="${dir.jarfile}/ftl.jar" todir="docker@k54129:/tmp" keyfile="H:/.ssh/id_rcs-operator" trust="true" />
     </target>

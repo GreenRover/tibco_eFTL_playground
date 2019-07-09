@@ -3,6 +3,7 @@ package ch.sbb.ftl.demo.helper;
 public class MessageConstants {
 
 	public static int SENDING_COUNT = 100_000;
+	public static int BATCH_COUNT = 1;
 	public static int PARALLEL_THREADS = 12;
 
 	public static final int REQUEST_TIMEOUT_IN_MILLIS = 10_000;

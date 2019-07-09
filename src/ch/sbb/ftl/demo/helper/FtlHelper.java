@@ -56,15 +56,17 @@ public class FtlHelper {
 			if (MessageConstants.SENDING_COUNT < 1) {
 				MessageConstants.SENDING_COUNT = Integer.MAX_VALUE;
 			}
-			
-			System.out.println(MessageConstants.SENDING_COUNT);
 		}
 		
 		if (System.getProperty("threads") != null) {
 			MessageConstants.PARALLEL_THREADS = Integer.parseInt(System.getProperty("threads"));
 		}
+		
+		if (System.getProperty("batch") != null) {
+			MessageConstants.BATCH_COUNT = Integer.parseInt(System.getProperty("batch"));
+		}
 
-
+		
 		final TibProperties props = FTL.createProperties();
 		props.set(Realm.PROPERTY_STRING_USERNAME, realmUser);
 		props.set(Realm.PROPERTY_STRING_USERPASSWORD, realmPassword);

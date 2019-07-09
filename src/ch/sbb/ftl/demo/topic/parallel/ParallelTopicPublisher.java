@@ -1,5 +1,7 @@
 package ch.sbb.ftl.demo.topic.parallel;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -70,11 +72,25 @@ public class ParallelTopicPublisher {
 
 	public void send(final Realm realm) throws FTLException, InterruptedException {
 		final Publisher pub = realm.createPublisher(FtlHelper.ftlEndPoint);
+		List<Message> batch = new ArrayList<>(MessageConstants.BATCH_COUNT);
 		for (int i = 1; i <= MessageConstants.SENDING_COUNT; i++) {
 			final Message msg = createMessage(realm, i);
-			pub.send(msg);
+			
+			if (MessageConstants.BATCH_COUNT < 2) {
+				pub.send(msg);
+				msg.destroy();
+			} else {
+				batch.add(msg);
+				
+				if (batch.size() > MessageConstants.BATCH_COUNT) {
+					pub.send(batch.toArray(new Message[batch.size()]));
+					batch.forEach(m -> { try { m.destroy(); } catch (FTLException e) {} });
+					batch.clear();
+				}
+			}
+			
 			// Thread.sleep(100);
-			msg.destroy();
+			
 			messageCount.incrementAndGet();
 			messageCountPerSecond.incrementAndGet();
 		}
