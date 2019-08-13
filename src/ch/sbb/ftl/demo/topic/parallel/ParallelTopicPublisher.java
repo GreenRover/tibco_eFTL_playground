@@ -88,15 +88,20 @@ public class ParallelTopicPublisher {
 					batch.clear();
 				}
 			}
-			
+					
 			// Thread.sleep(100);
 			
 			messageCount.incrementAndGet();
 			messageCountPerSecond.incrementAndGet();
 		}
-
+		
+		if (batch.size() > 0) {
+			pub.send(batch.toArray(new Message[batch.size()]));
+		}
+		
 		System.out.println("  Cool down");
-		Thread.sleep(500);
+		// Because we dont know when the JNDI parts send alls its buffers.
+		Thread.sleep(2000);
 		pub.close();
 		realm.close();
 		System.out.println("  DONE");

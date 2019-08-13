@@ -13,11 +13,13 @@ import java.util.logging.Level;
 
 import com.tibco.ftl.ContentMatcher;
 import com.tibco.ftl.EventQueue;
+import com.tibco.ftl.FTL;
 import com.tibco.ftl.FTLException;
 import com.tibco.ftl.Message;
 import com.tibco.ftl.Realm;
 import com.tibco.ftl.Subscriber;
 import com.tibco.ftl.SubscriberListener;
+import com.tibco.ftl.TibProperties;
 
 import ch.sbb.ftl.demo.helper.FtlHelper;
 import ch.sbb.ftl.demo.helper.MessageConstants;
@@ -31,6 +33,9 @@ public class ParallelTopicReceiver {
 
 	public static AtomicInteger messageCountPerSecond = new AtomicInteger(0);
 	public static AtomicInteger messageCount = new AtomicInteger(0);
+	public static AtomicInteger messageBlocks = new AtomicInteger(0);
+	public static AtomicInteger messageBlocksMin = new AtomicInteger(Integer.MAX_VALUE);
+	public static AtomicInteger messageBlocksMax = new AtomicInteger(0);
 
 	protected int MAX_MESSAGES = MessageConstants.PARALLEL_THREADS * MessageConstants.SENDING_COUNT;
 
@@ -47,25 +52,29 @@ public class ParallelTopicReceiver {
 		System.out.println("Connected to: " + realm);
 		Thread.sleep(300);
 
-
 		final EventQueue queue = realm.createEventQueue();
-		
+
 		subscribe(queue, rand.getAllDestinations());
-		
+
 		final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 		executorService.scheduleAtFixedRate(() -> {
-			final int countPerSecond = messageCountPerSecond.getAndSet(0);
-			final int countTotal = messageCount.get();
-			System.out.printf("%,d msg/s [%,d | %,d]%n", countPerSecond, countTotal, MAX_MESSAGES);
+			try {
+				final int countPerSecond = messageCountPerSecond.getAndSet(0);
+				final int countTotal = messageCount.get();
+				final int blockCount = messageBlocks.get();
+				System.out.printf("%,d msg/s [%,d] [blocks: avg:%.2f, max:%d, min:%d]%n", countPerSecond, countTotal,
+						(countTotal > 0 && blockCount > 0) ? countTotal / blockCount : 0f, //
+						messageBlocksMax.get(), //
+						messageBlocksMin.get());
+			} catch (Exception e) {
+				System.out.println(e);
+			}
 		}, 0, 1, TimeUnit.SECONDS);
 
 		executorService.scheduleAtFixedRate(() -> {
 			System.out.printf("  message prio stats: %s%n", calculateMapStatistics(map));
 		}, 0, 30, TimeUnit.SECONDS);
-		
-		
-		
-		
+
 		final ExecutorService executor = Executors.newFixedThreadPool(MessageConstants.PARALLEL_THREADS);
 		for (int i = 0; i < MessageConstants.PARALLEL_THREADS; i++) {
 			executor.submit(() -> {
@@ -76,15 +85,20 @@ public class ParallelTopicReceiver {
 		}
 		executor.shutdown();
 	}
-	
+
 	private void subscribe(final EventQueue queue, final List<String> destinations) throws FTLException {
+		final TibProperties props = FTL.createProperties();
+		if (FtlHelper.durableName != null) {
+			props.set(Subscriber.PROPERTY_STRING_DURABLE_NAME, FtlHelper.durableName);
+		}
+
 		for (final String destination : destinations) {
 			final String matcher = "{\"type\":\"" + destination + "\"}";
 			final ContentMatcher cm = realm.createContentMatcher(matcher);
 
-			final Subscriber sub = realm.createSubscriber(FtlHelper.ftlEndPoint, cm);
+			final Subscriber sub = realm.createSubscriber(FtlHelper.ftlEndPoint, cm, props);
 			queue.addSubscriber(sub, new TopicListener());
-			
+
 			cm.destroy();
 		}
 	}
@@ -105,6 +119,10 @@ public class ParallelTopicReceiver {
 
 		@Override
 		public void messagesReceived(final List<Message> msgs, final EventQueue queue) {
+			messageBlocks.incrementAndGet();
+			messageBlocksMax.getAndAccumulate(msgs.size(), Math::max);
+			messageBlocksMin.getAndAccumulate(msgs.size(), Math::min);
+
 			for (final Message msg : msgs) {
 				try {
 					processTextMessage(msg);

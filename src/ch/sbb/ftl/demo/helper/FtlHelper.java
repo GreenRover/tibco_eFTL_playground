@@ -20,6 +20,7 @@ public class FtlHelper {
 	public static String realmServer = "http://shared-rcsactivemq-node01.otc-test.sbb.ch:8585|http://shared-rcsactivemq-node02.otc-test.sbb.ch:8585";
 	public static String realmUser = "admin";
 	public static String realmPassword = "admin-pw";
+	public static String durableName = null;
 
 	public static void setupLogging(final Level level) {
 		final LogManager manager = LogManager.getLogManager();
@@ -49,6 +50,10 @@ public class FtlHelper {
 
 		if (System.getProperty("realmAppName") != null) {
 			FtlHelper.realmAppName = System.getProperty("realmAppName");
+		}
+		
+		if (System.getProperty("durableName") != null) {
+			FtlHelper.durableName = System.getProperty("durableName");
 		}
 		
 		if (System.getProperty("count") != null) {
